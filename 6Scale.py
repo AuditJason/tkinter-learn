@@ -1,3 +1,4 @@
+#https://mofanpy.com/tutorials/python-basic/tkinter/scale/
 import tkinter as tk
 
 window = tk.Tk()
@@ -6,7 +7,6 @@ window.title('my window')
 # 窗口尺寸
 window.geometry('500x300')
 lbl = tk.Label(window, bg='yellow', width=21, text='empty')  # width=21字符的宽度
-# lbl = tk.Label(window, bg='yellow', width=20, textvariable=var)  # 第二种写法  不成功
 lbl.pack()
 
 
@@ -21,7 +21,7 @@ s = tk.Scale(window,
              orient=tk.HORIZONTAL,
              length=200,
              showvalue=0,
-             #variable=var,
+             # variable=var,
              tickinterval=3,
              resolution=0.01,
              command=print_selection
