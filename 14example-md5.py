@@ -10,6 +10,7 @@ LOG_LINE_NUM = 0
 
 class MY_GUI():
     def __init__(self, init_window_name):
+        # 初始化时传入了init_window = Tk()对象。init_window_name名称有迷惑。
         self.init_window_name = init_window_name
 
     #设置窗口
