@@ -8,7 +8,25 @@ Created on Wed Nov  3 06:55:15 2021
 
 import tkinter as tk
 from tkinter import ttk
- 
+
+
+class CreateFinanceRatio:
+    def __init__(self, master, text):
+        self.__ratio_var = tk.IntVar()
+        ckb = tk.Checkbutton(master, text=text, variable=self.__ratio_var, onvalue=1, offvalue=0,)
+        ckb.pack(side="left")
+        self.__spinbox_start_var = tk.IntVar()
+        sp1 = tk.Spinbox(master, textvariable=self.__spinbox_start_var, from_=0, to=1, width=4)
+        sp1.pack(side="left")
+        tk.Label(master, text='~').pack(side="left")
+        self.__spinbox_end_var = tk.IntVar()
+        sp2 = tk.Spinbox(master, textvariable=self.__spinbox_end_var, from_=0, to=1, width=4)
+        sp2.pack(side="left")
+
+    @property
+    def checked_ratio(self):
+        return self.__ratio_var.get(), self.__spinbox_start_var.get(), self.__spinbox_end_var.get()
+
 window = tk.Tk()
 # 设置窗口大小
 winWidth = 600
@@ -51,16 +69,43 @@ for v in lists:
     i += 1
  
 tree.pack(expand = True, fill = tk.BOTH)
- 
+
+def open_edit_window(event):
+    item = tree.selection()
+    item_text = tree.item(item, "values")
+    print(item_text)
+    print(type(item_text))
+    if item:
+        new_window = tk.Toplevel(window)
+        winWidth, winHeight, x, y = 300, 182 , 500 ,500
+        new_window.geometry("%sx%s+%s+%s" % (winWidth, winHeight, x, y))
+        CFR = CreateFinanceRatio(new_window,item_text[0])
+        tk.Button(new_window, text='确认', command=cahnge_ratio(item, )).pack()
  
 # 获取当前点击行的值
 def treeviewClick(event):  # 单击
     for item in tree.selection():
         item_text = tree.item(item, "values")
         print(item_text)
- 
+
+def get_focus(event):
+    tree.focus(item=tree.selection())
+
+def cahnge_ratio(item, values=CFR.checked_ratio):
+    tree.item(item, text="blub", values=values)
+
+def tree_edit(event):
+    # 选择后修改选择项
+    item = tree.selection()
+    tree.item(item, text="blub", values=("jack", "foo", "bar"))
+
+# 鼠标点击时开启新窗口，并提供修改项目，获取数据后修改原数据
+
 # 鼠标左键抬起
-tree.bind('<ButtonRelease-1>', treeviewClick)
+# tree.bind('<ButtonRelease-1>', treeviewClick)  # 选择并获取数据
+# tree.bind('<ButtonRelease-1>', get_focus)  # 修改数据
+tree.bind('<ButtonRelease-1>', open_edit_window)  # 修改数据
+
  
 # 鼠标选中一行回调
 def selectTree(event):
