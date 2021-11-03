@@ -12,20 +12,23 @@ from tkinter import ttk
 
 class CreateFinanceRatio:
     def __init__(self, master, text):
-        self.__ratio_var = tk.IntVar()
-        ckb = tk.Checkbutton(master, text=text, variable=self.__ratio_var, onvalue=1, offvalue=0,)
+        # self.__text_var = tk.IntVar()
+        tk.Label(master, text='修改财务指标/比例，确认后确认作为筛选条件：').pack(side='top', anchor='w')
+        self.text = text + ' :   '
+        ckb = tk.Label(master, text=self.text)
         ckb.pack(side="left")
-        self.__spinbox_start_var = tk.IntVar()
-        sp1 = tk.Spinbox(master, textvariable=self.__spinbox_start_var, from_=0, to=1, width=4)
+        self.__entry_start_var = tk.IntVar()
+        sp1 = tk.Entry(master, textvariable=self.__entry_start_var, width=12)
         sp1.pack(side="left")
-        tk.Label(master, text='~').pack(side="left")
-        self.__spinbox_end_var = tk.IntVar()
-        sp2 = tk.Spinbox(master, textvariable=self.__spinbox_end_var, from_=0, to=1, width=4)
+        tk.Label(master, text='      ~      ').pack(side="left")
+        self.__entry_end_var = tk.IntVar()
+        sp2 = tk.Entry(master, textvariable=self.__entry_end_var, width=12)
         sp2.pack(side="left")
+        tk.Label(master, text='      ').pack(side='left')
 
     @property
     def checked_ratio(self):
-        return self.__ratio_var.get(), self.__spinbox_start_var.get(), self.__spinbox_end_var.get()
+        return self.text.split(' ')[0], self.__entry_start_var.get(), self.__entry_end_var.get()
 
 window = tk.Tk()
 # 设置窗口大小
@@ -62,7 +65,7 @@ tree.heading("gender", text = "性别")
 tree.heading("age", text = "年龄")
  
 # 设置表格内容
-lists = [{"name": "yang", "gender": "男", "age": "18"}, {"name": "郑", "gender": "女", "age": "25"}]
+lists = [{"name": "yang", "gender": "男", "age": "18"}, {"name": "性别性别性别性别性别", "gender": "女", "age": "25"}]
 i = 0
 for v in lists:
     tree.insert('', i, values = (v.get("name"), v.get("gender"), v.get("age")))
@@ -74,13 +77,18 @@ def open_edit_window(event):
     item = tree.selection()
     item_text = tree.item(item, "values")
     print(item_text)
-    print(type(item_text))
     if item:
         new_window = tk.Toplevel(window)
-        winWidth, winHeight, x, y = 300, 182 , 500 ,500
+        new_window.title('筛选参数修改')
+        winWidth, winHeight, x, y = 500, 80 , 300 ,300
         new_window.geometry("%sx%s+%s+%s" % (winWidth, winHeight, x, y))
+        new_window.resizable(False, False)
         CFR = CreateFinanceRatio(new_window,item_text[0])
-        tk.Button(new_window, text='确认', command=cahnge_ratio(item, )).pack()
+        tk.Button(
+            new_window,
+            text='确认',
+            command=lambda: (cahnge_ratio(item,  CFR.checked_ratio), new_window.destroy()),
+        ).pack(side='left')
  
 # 获取当前点击行的值
 def treeviewClick(event):  # 单击
@@ -91,8 +99,8 @@ def treeviewClick(event):  # 单击
 def get_focus(event):
     tree.focus(item=tree.selection())
 
-def cahnge_ratio(item, values=CFR.checked_ratio):
-    tree.item(item, text="blub", values=values)
+def cahnge_ratio(item, values):
+    tree.item(item, values=values)
 
 def tree_edit(event):
     # 选择后修改选择项
