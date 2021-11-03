@@ -4,7 +4,7 @@ window = tk.Tk()
 window.title('my window')
 
 # 窗口尺寸
-window.geometry('500x300')
+window.geometry('1150x700')
 
 
 def insert_point():
@@ -17,7 +17,7 @@ def insert_end():
     t.insert('end', var)  # 将获取到的e的输入值传给t
 
 
-e = tk.Entry(window, show='*')
+e = tk.Entry(window, font=(10),width=20,) #show='*'
 e.pack()
 
 b1 = tk.Button(window,
