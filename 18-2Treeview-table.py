@@ -52,7 +52,7 @@ window.resizable(0, 0)
  
 # 定义列的名称
 columns = ("name", "gender", "age")
-tree = ttk.Treeview(window, show = "headings", columns = columns, selectmode = tk.BROWSE)
+tree = ttk.Treeview(window, show = "headings", columns = columns, selectmode = tk.EXTENDED)#tk.BROWSE
  
 # 设置表格文字居中
 tree.column("name", anchor = "center")
@@ -65,13 +65,15 @@ tree.heading("gender", text = "性别")
 tree.heading("age", text = "年龄")
  
 # 设置表格内容
-lists = [{"name": "yang", "gender": "男", "age": "18"}, {"name": "性别性别性别性别性别", "gender": "女", "age": "25"}]
+lists = [{"name": "yang", "gender": "男", "age": "18"}, {"name": "性别性别性别性别性别", "gender": "女", "age": "25"}]*3
 i = 0
 for v in lists:
     tree.insert('', i, values = (v.get("name"), v.get("gender"), v.get("age")))
     i += 1
  
-tree.pack(expand = True, fill = tk.BOTH)
+tree.pack()  # expand = True, fill = tk.BOTH
+
+
 
 def open_edit_window(event):
     item = tree.selection()
@@ -112,16 +114,26 @@ def tree_edit(event):
 # 鼠标左键抬起
 # tree.bind('<ButtonRelease-1>', treeviewClick)  # 选择并获取数据
 # tree.bind('<ButtonRelease-1>', get_focus)  # 修改数据
-tree.bind('<ButtonRelease-1>', open_edit_window)  # 修改数据
+# tree.bind('<ButtonRelease-1>', open_edit_window)  # 修改数据
 
  
 # 鼠标选中一行回调
+selection__data = []
 def selectTree(event):
     for item in tree.selection():
         item_text = tree.item(item, "values")
+        selection__data.append(item_text)
         print(item_text)
-     
+
+def get_selection():
+    selection__d = []
+    for item in tree.selection():
+        item_text = tree.item(item, "values")
+        selection__d.append(item_text)
+    print(selection__d)
 # 选中行
-#tree.bind('<<TreeviewSelect>>', selectTree)
+tree.bind('<<TreeviewSelect>>', selectTree)
+# tree.bind('<<TreeviewSelect>>', get_selection)
+tk.Button(window, text='确认', command=get_selection).pack(side='bottom')  # #tk.BOTTOM  #
  
 window.mainloop()
