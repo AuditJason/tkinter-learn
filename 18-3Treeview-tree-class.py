@@ -57,7 +57,7 @@ class CreateTable:
 
 class CreateTree:
 
-    def __init__(self, master, selectmode='extended', height=10):
+    def __init__(self, master, selectmode='extended',  height=10):
         yscroll = tk.Scrollbar(master, orient=tk.VERTICAL)
         self.__tree = ttk.Treeview(
             master,
@@ -65,7 +65,7 @@ class CreateTree:
             selectmode=selectmode,
             height=height,
             yscrollcommand=yscroll.set)
-
+        self.__tree.column(0, width=30)
         yscroll.config(command=self.__tree.yview)
         yscroll.pack(side=tk.RIGHT, fill=tk.Y)
         self.__tree.pack()

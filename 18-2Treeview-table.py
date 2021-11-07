@@ -125,6 +125,10 @@ def selectTree(event):
         selection__data.append(item_text)
         print(item_text)
 
+def delete_item():
+    for item in tree.selection():
+        tree.delete(item)
+
 def get_selection():
     selection__d = []
     for item in tree.selection():
@@ -134,6 +138,6 @@ def get_selection():
 # 选中行
 tree.bind('<<TreeviewSelect>>', selectTree)
 # tree.bind('<<TreeviewSelect>>', get_selection)
-tk.Button(window, text='确认', command=get_selection).pack(side='bottom')  # #tk.BOTTOM  #
+tk.Button(window, text='确认', command=delete_item).pack(side='bottom')  # #tk.BOTTOM  #
  
 window.mainloop()

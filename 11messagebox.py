@@ -11,7 +11,7 @@ def hit_me():
     # messagebox.showinfo(title='Hi', message='HaHa')
     # messagebox.showerror(title='Hi', message='error')
     # messagebox.showwarning(title='Hi', message='waring')
-    print(messagebox.askyesno(title='Hi', message='HaHa'))  # 有返回值的弹窗
+    print(messagebox.askyesno(title='Hi', message=''))  # 有返回值的弹窗
 tk.Button(window, text='hit me', command=hit_me).pack()
 
 
