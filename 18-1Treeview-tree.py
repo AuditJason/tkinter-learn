@@ -37,7 +37,7 @@ myidx1=tree.insert(myid,0,"广东",text="中国广东",values=("2"))  # text表�
 myidx2=tree.insert(myid,1,"江苏",text="中国江苏",values=("3"))
 myidy=tree.insert("",1,"美国",text="美国USA",values=("4"))   
 myidy1=tree.insert(myidy,0,"加州",text="美国加州",values=("5"))
- 
+tree.pack(expand = True, fill = tk.BOTH)
 # 鼠标选中一行回调
 def selectTree(event):
     for item in tree.selection():
@@ -45,8 +45,12 @@ def selectTree(event):
         print(item_text)
      
 # 选中行
-tree.bind('<<TreeviewSelect>>', selectTree)
- 
-tree.pack(expand = True, fill = tk.BOTH)
+#tree.bind('<<TreeviewSelect>>', selectTree)
+def btn2_change_t1():
+    print(tree)
+    tree.state='disable'
+btn2 = tk.Button(window, text='TEST', fg="blue", state='normal', width=12, height=1, command=btn2_change_t1)
+btn2.pack()
+
  
 window.mainloop()
