@@ -33,11 +33,12 @@ window.resizable(0, 0)
 # 定义列的名称
 tree = ttk.Treeview(window, show = "tree", selectmode='extended')
  
-# myid=tree.insert("",0,"中国",text="中国China",values=("1"))  # ""表示父节点是根
-# myidx1=tree.insert(myid,0,"广东",text="中国广东",values=("2"))  # text表示显示出的文本，values是隐藏的值
-# myidx2=tree.insert(myid,1,"江苏",text="中国江苏",values=("3"))
-# myidy=tree.insert("",1,"美国",text="美国USA",values=("4"))
-# myidy1=tree.insert(myidy,0,"加州",text="美国加州",values=("5"))
+myid=tree.insert("",0,"中国",text="中国China",values=("1"))  # ""表示父节点是根
+myidx1=tree.insert(myid,0,"广东",text="中国广东",values=("2"))  # text表示显示出的文本，values是隐藏的值
+myidx2=tree.insert(myid,1,"江苏",text="中国江苏",values=("3"))
+myidy=tree.insert("",1,"美国",text="美国USA",values=("4"))
+myidy1=tree.insert(myidy,0,"加州",text="美国加州",values=("5"))
+myidy2=tree.insert(myidy,1,"江苏2",text="中国江苏",values=("6"))
 
 
 def add_tree_data(treetable, data_dic, open=True):
@@ -59,7 +60,7 @@ def add_tree_data(treetable, data_dic, open=True):
                         for n2, i2 in enumerate(data_dic.get(k).get(i)):
                             treetable.insert(treek2, n2, i2, text=i2, values=i2)
 
-add_tree_data(tree, industry, open=False)
+#add_tree_data(tree, industry, open=False)
 tree.pack(expand = True, fill = tk.BOTH)
 # 鼠标选中一行回调
 def selectTree(event):
@@ -70,8 +71,6 @@ def selectTree(event):
     print(item, type(item))
     item_parent = tree.parent(item)
     print(item_parent, type(item_parent))
-    item_parent_parent = tree.parent(item_parent)
-    print(item_parent_parent, type(item_parent_parent))
 
 def delete_tree():
     print('删除所有项目：')

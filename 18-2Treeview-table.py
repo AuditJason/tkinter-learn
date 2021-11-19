@@ -135,9 +135,18 @@ def get_selection():
         item_text = tree.item(item, "values")
         selection__d.append(item_text)
     print(selection__d)
+
+def get_all_data():
+    root_items = tree.get_children()
+    print(root_items)
+    for item in root_items:
+        # print(tree.get_children(item))  #
+        print(tree.item(item)["values"])
+
+
 # 选中行
 tree.bind('<<TreeviewSelect>>', selectTree)
 # tree.bind('<<TreeviewSelect>>', get_selection)
-tk.Button(window, text='确认', command=delete_item).pack(side='bottom')  # #tk.BOTTOM  #
+tk.Button(window, text='确认', command=get_all_data).pack(side='bottom')  # #tk.BOTTOM  #
  
 window.mainloop()
